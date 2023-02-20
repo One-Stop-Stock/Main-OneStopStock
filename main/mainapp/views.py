@@ -5,3 +5,6 @@ from django.http import HttpResponse
 def home_view(request, *args, **kwargs):
     print(request.user)
     return render(request, "home.html", {})
+
+def tristen_a3p3(request, *args, **kwargs):
+    return render(request, "tristena3p3.html", {})
