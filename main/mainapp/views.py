@@ -8,3 +8,6 @@ def home_view(request, *args, **kwargs):
 
 def tristen_a3p3(request, *args, **kwargs):
     return render(request, "tristena3p3.html", {})
+
+def ryleya3p3(request, *args, **kwargs):
+    return render(request, "ryleya3p3.html", {})	
