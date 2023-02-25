@@ -1,3 +1,8 @@
-from django.test import TestCase
+from django.test import LiveServerTestCase
+from selenium import webdriver
 
-# Create your tests here.
+class SeleniumTest(LiveServerTestCase):
+    def testhomepage(self):
+        driver = webdriver.Edge()
+
+        driver.get('https://google.com')
