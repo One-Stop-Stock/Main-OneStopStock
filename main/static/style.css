@@ -1,0 +1,13 @@
+body {
+    background-color: #a9a9a9;
+    font-family: monospace, Arial, sans-serif;
+}
+
+#main-name {
+    padding: 5px;
+    margin-bottom: 40px;
+}
+
+.App {
+    text-align: center;
+}
