@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>One Stop Stock</title>
 </head>
+<style>
+    body {
+        background-color: #a9a9a9;
+        font-family: monospace, Arial, sans-serif;
+    }
+
+    #main-name {
+        padding: 5px;
+        margin-bottom: 40px;
+    }
+
+    .App {
+        text-align: center;
+    }
+</style>
 <body>
-    <h1>Hello World!</h1>
+    <div class="App">
+        <h1 id="main-name">One Stop Stock</h1>
+        <h3>Enter what product you would like to search for :</h3>
+        <div class="user-input">
+            <form action="/">
+                <input type="text" id="store-item">
+                <input type="button" class="btn" onclick="getStoreItem()" value="Show Item">
+            </form>
+        </div>
+    </div> 
+    <script>
+        function getStoreItem() {
+            var input = document.getElementById("store-item").value;
+            alert(input);
+        }
+    </script>
 </body>
 </html>
