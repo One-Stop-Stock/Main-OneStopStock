@@ -14,17 +14,19 @@
         <h1 id="main-name">One Stop Stock</h1>
         <h3>Enter what product you would like to search for :</h3>
         <div class="user-input">
-            <form action="" method="POST">
-                <input type="text" id="store-item">
-                <input type="button" class="btn" onclick="getStoreItem()" value="Show Item">
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="text" name="store-item">
+                <button type="submit" class="btn">Find Item</button>
             </form>
         </div>
+        <div class="App">
+            {% if input %}
+                <p>Showing results for : {{input}}</p>
+            {% else %}
+                <p>Waiting for item input...</p>
+            {% endif %}
+        </div>
     </div> 
-    <script>
-        function getStoreItem() {
-            var input = document.getElementById("store-item").value;
-            alert(input);
-        }
-    </script>
 </body>
 </html>

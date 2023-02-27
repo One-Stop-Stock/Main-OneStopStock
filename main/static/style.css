@@ -4,10 +4,32 @@ body {
 }
 
 #main-name {
-    padding: 5px;
     margin-bottom: 40px;
 }
 
 .App {
     text-align: center;
+    padding: 5px;
+}
+
+.btn {
+  border-radius: 5px;
+  border-width: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 5px 5px;
+  text-align: center;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+input[type=text] {
+    border-radius: 5px;
+    padding: 5px 5px;
+    margin: 0;
+    box-sizing: border-box;
 }

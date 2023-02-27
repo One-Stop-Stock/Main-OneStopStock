@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def home_view(request, *args, **kwargs):
-    print(request.user)
-    return render(request, "home.html")
+    input = request.POST.get('store-item')
+    print(input)
+    return render(request, "home.html", {'input': input})
 
 def tristen_a3p3(request, *args, **kwargs):
     return render(request, "tristena3p3.html", {})
