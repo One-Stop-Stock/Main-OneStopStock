@@ -10,9 +10,9 @@ def home_view(request, *args, **kwargs):
     print(input)
     if not input:
         return render(request, "home.html", {'input': input})
-    else:
-        content = getResult(input)
-        return render(request, "home.html", {'input': input})
+    
+    content = getResult(input)
+    return render(request, "home.html", {'input': content})
 
 def tristen_a3p3(request, *args, **kwargs):
     return render(request, "tristena3p3.html", {})
@@ -28,8 +28,8 @@ def getResult(input):
     driver = webdriver.Chrome("C://Users/cubix/Downloads/chromedriver.exe")
     walmartLink = "https://www.walmart.com/search?q="
     itemSearch = input
-    url = walmartLink + itemSearch
-    driver.get(url)
+    link = walmartLink + itemSearch
+    driver.get(link)
     time.sleep(2)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
