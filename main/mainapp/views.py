@@ -8,8 +8,11 @@ import time
 def home_view(request, *args, **kwargs):
     input = request.POST.get('store-item')
     print(input)
-    content = getResult(input)
-    return render(request, "home.html", {'input': content})
+    if not input:
+        return render(request, "home.html", {'input': input})
+    else:
+        content = getResult(input)
+        return render(request, "home.html", {'input': input})
 
 def tristen_a3p3(request, *args, **kwargs):
     return render(request, "tristena3p3.html", {})
@@ -23,7 +26,10 @@ def ryana3p3(request, *args, **kwargs):
 def getResult(input):
     #Change driver and driver location
     driver = webdriver.Chrome("C://Users/cubix/Downloads/chromedriver.exe")
-    driver.get("https://www.walmart.com/search?q=" + input)
+    walmartLink = "https://www.walmart.com/search?q="
+    itemSearch = input
+    url = walmartLink + itemSearch
+    driver.get(url)
     time.sleep(2)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
