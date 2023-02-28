@@ -9,7 +9,15 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-<body>
+<body style="background-image: url('./static/abstract-blur-supermarket.jpg')">
+    <div>
+    <div id="headerhelp">
+    <header id="header">
+        <a class="navheading" href="">Home</a>
+        <a class="navheading" href="">About</a>
+        <a class="navheading" href="" id="rightmost-link">Contact</a>
+    </header>
+    </div> 
     <div class="App">
         <h1 id="main-name">One Stop Stock</h1>
         <h3>Enter what product you would like to search for :</h3>
@@ -20,13 +28,17 @@
                 <button type="submit" class="btn">Find Item</button>
             </form>
         </div>
-        <div class="App">
+        <div>
             {% if input %}
                 <p>Showing results for : {{input}}</p>
             {% else %}
                 <p>Waiting for item input...</p>
             {% endif %}
         </div>
-    </div> 
+    </div>
+    <footer id="footer">
+        <p id="contributers">Contibuters: Tristen Bizzaro, Ryan Phan, Ryley Gonzales</p>
+    </footer> 
+    </div>
 </body>
 </html>
