@@ -25,7 +25,7 @@ def ryana3p3(request, *args, **kwargs):
 
 def getResult(input):
     #Change driver and driver location
-    driver = webdriver.Edge("/Users/tbizzy/Desktop/Main-OneStopStock/main/edgedriver_mac64/msedgedriver")
+    driver = 
     walmartLink = "https://www.target.com/s?searchTerm="
     itemSearch = input
     link = walmartLink + itemSearch
