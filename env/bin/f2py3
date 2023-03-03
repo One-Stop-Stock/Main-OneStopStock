@@ -1,4 +1,4 @@
-#!/Users/tbizzy/Desktop/Main-OneStopStock/env/bin/python
+#!\Users\Ryley Gonzales\Documents\GitHub\Main-OneStopStock\env\bin
 # -*- coding: utf-8 -*-
 import re
 import sys
