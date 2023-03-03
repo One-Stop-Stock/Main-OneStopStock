@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.utils import ChromeType
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 import time
