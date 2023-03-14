@@ -1,4 +1,4 @@
-#!/Users/tbizzy/Desktop/Main-OneStopStock/env/bin/python
+#!\Users\Ryley Gonzales\Documents\GitHub\Main-OneStopStock\env\bin
 # EASY-INSTALL-ENTRY-SCRIPT: 'pur==7.1.0','console_scripts','pur'
 import re
 import sys

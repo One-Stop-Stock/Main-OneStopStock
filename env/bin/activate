@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/tbizzy/Desktop/Main-OneStopStock/env"
+VIRTUAL_ENV="\Users\Ryley Gonzales\Documents\GitHub\Main-OneStopStock\env\bin"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
