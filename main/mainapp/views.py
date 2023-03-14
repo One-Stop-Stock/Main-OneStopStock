@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 import time
 
 def home_view(request, *args, **kwargs):
@@ -25,7 +27,7 @@ def ryana3p3(request, *args, **kwargs):
 
 def getResult(input):
     #Change driver and driver location
-    driver = webdriver.Edge("/Users/tbizzy/Desktop/Main-OneStopStock/main/edgedriver_mac64/msedgedriver")
+    driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
     walmartLink = "https://www.target.com/s?searchTerm="
     itemSearch = input
     link = walmartLink + itemSearch
