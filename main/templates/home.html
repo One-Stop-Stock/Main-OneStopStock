@@ -9,12 +9,12 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-<body style="background-image: url('./static/abstract-blur-supermarket.jpg')">
+<body id="home-page-body" style="background-image: url('./static/abstract-blur-supermarket.jpg')">
     <div>
     <div id="headerhelp">
     <header id="header">
-        <a class="navheading" href="">Home</a>
-        <a class="navheading" href="">About</a>
+        <a class="navheading" href="{% url 'home' %}">Home</a>
+        <a class="navheading" href="{% url 'about' %}">About</a>
         <a class="navheading" href="" id="rightmost-link">Contact</a>
     </header>
     </div> 

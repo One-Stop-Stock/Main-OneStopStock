@@ -18,14 +18,8 @@ def home_view(request, *args, **kwargs):
     content = getResult(input)
     return render(request, "home.html", {'input': content})
 
-def tristen_a3p3(request, *args, **kwargs):
-    return render(request, "tristena3p3.html", {})
-
-def ryleya3p3(request, *args, **kwargs):
-    return render(request, "ryleya3p3.html", {})	
-
-def ryana3p3(request, *args, **kwargs):
-    return render(request, "ryana3p3.html", {})
+def about_view(request, *args, **kwargs):
+    return render(request, "about.html", {})
 
 def getResult(input):
     #Change driver and driver location
@@ -85,6 +79,15 @@ def getResult(input):
 
 
     return (content)
+
+""" def tristen_a3p3(request, *args, **kwargs):
+    return render(request, "tristena3p3.html", {})
+
+def ryleya3p3(request, *args, **kwargs):
+    return render(request, "ryleya3p3.html", {})	
+
+def ryana3p3(request, *args, **kwargs):
+    return render(request, "ryana3p3.html", {}) """
 
 
 
