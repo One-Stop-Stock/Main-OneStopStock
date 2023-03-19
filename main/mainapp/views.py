@@ -51,13 +51,7 @@ def getResult(input):
     content.append(k)
     k = {}
     """
-    
-    try:
-        item = soup.find_all("div", {"class": "Truncate-sc-10p6c43-0 flAIvs"})
-    except:
-        item = None
-    
-    
+
     '''
     #Only get the first 4 items
     for i in range (0,4):
@@ -68,6 +62,27 @@ def getResult(input):
     content.append(k)
     k = {}
     '''
+    
+    #Target Testing
+    try:
+        item = soup.find_all("div", {"class": "Truncate-sc-10p6c43-0 flAIvs"})
+    except:
+        item = None
+    
+    #finds all image links on the website and storing it into a list
+    links = list()
+    images = soup.find_all('img')
+    for img in images:
+        if img.has_attr('src'):
+            links.append(img['src'])
+
+    #Slicing up 'duplicate links'
+    temp = links[2:10]
+    newLinks = temp[::2]
+    
+    #the list 'newLinks' contains 4 links
+    #return (newLinks)
+    
 
     for i in range(0, 4):
         try:
