@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-<body id="about-page-body" style="background-image: url('./static/about-blur-blurry.jpg')">
+<body id="about-page-body" style="background-image: url('../static/about-blur-blurry.jpg')">
     <div>
     <div id="headerhelp">
         <header id="header">
@@ -17,6 +17,25 @@
             <a class="navheading" href="{% url 'about' %}">About</a>
             <a class="navheading" href="" id="rightmost-link">Contact</a>
         </header>
+    </div>
+    <div id="about-content" style="display: flex; flex-direction: row; margin: 200px 25px 25px;">
+        <div id="about-left-side" style="width: 800px; height: 150px; background-color: rgba(20, 20, 20, 0.5); border-radius: 50px; justify-content: center;">
+            <h2 style="margin-left: 20px; margin-top: 60px;">What is <em>One-Stop-Stock</em>?</h2>
+        </div>
+        <div id="space-between" style="width: 25px"></div>
+        <div id="about-right-side" style=" width: 1500px; background-color: rgba(20, 20, 20, 0.5); padding: 5px; border-radius: 50px;">
+            <div style="margin: 20px;">
+            <p><em>One-Stop-Stock</em> aims to streamline anyones electronic shopping experience!</p>
+            <p>
+                Do you prefer the convenience of shopping online and picking up your 
+                order at a nearby store? Do you ever find yourself endlessly browsing 
+                online to find a nearby store that has a specific item you are looking 
+                for? The main goal of <em>One-Stop-Stock</em> is to give online shoppers an easy and 
+                convenient way to shop online and find the exact product they are 
+                looking for in their area.
+            </p>
+            </div>
+        </div>
     </div>
     <footer id="footer">
         <p id="contributers">Contibuters: Tristen Bizzaro, Ryan Phan, Ryley Gonzales</p>
