@@ -22,6 +22,7 @@ def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})
 
 def getResult(input):
+    global imageList
     #Change driver and driver location
     driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
     walmartLink = "https://www.target.com/s?searchTerm="
@@ -81,7 +82,7 @@ def getResult(input):
     newLinks = temp[::2]
     
     #the list 'newLinks' contains 4 links
-    #return (newLinks)
+    imageList = newLinks
     
 
     for i in range(0, 4):
@@ -94,6 +95,11 @@ def getResult(input):
 
 
     return (content)
+
+def getImage():
+    global imageList
+    return imageList
+
 
 """ def tristen_a3p3(request, *args, **kwargs):
     return render(request, "tristena3p3.html", {})
