@@ -27,11 +27,11 @@ def getResult(input):
     global imageList
     #Change driver and driver location
     driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
-    walmartLink = "https://www.target.com/s?searchTerm="
+    targetLink = "https://www.target.com/s?searchTerm="
     itemSearch = input
-    link = walmartLink + itemSearch
+    link = targetLink + itemSearch
     driver.get(link)
-    time.sleep(4)
+    time.sleep(8)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
 
@@ -72,6 +72,9 @@ def getResult(input):
     except:
         item = None
     
+    """ 
+    OUTDATED - KEEPING THIS HERE JUST IN CASE SOMETHING BREAKS
+
     #finds all image links on the website and storing it into a list
     links = list()
     images = soup.find_all('img')
@@ -83,10 +86,18 @@ def getResult(input):
 
     #Slicing up 'duplicate links'
     temp = links[3:10]
-    newLinks = temp[::2]
-    
-    #the list 'newLinks' contains 4 links
-    imageList = newLinks
+    newLinks = temp[::2]"
+    """
+
+    #New version of image retrieval 
+    #Tells soup to find all of our images wthin a certain section (ie the product section, ignoring ads or other misc)
+    links = list()
+    for images in soup.find_all("picture", {"data-test" : "@web/ProductCard/ProductCardImage/primary"}):
+        for img in images.find_all("img"):
+            links.append(img['src'])
+
+    temp = links[:4] #Condense down the amount of links into 4
+    imageList = temp #shipping it off
     
 
     for i in range(0, 4):
