@@ -1,7 +1,6 @@
 body {
     background-color: #B8C6DB;
-    background-repeat: no-repeat;
-    background-size: 2500px;
+    background-size: 100%;
     background-position: center center;
     font-family: monospace, Arial, sans-serif;
     margin: 0px 0px 0px 0px;
@@ -64,9 +63,10 @@ a:active {color:#000000;}
 
 .btn {
     font-family: monospace, Arial, sans-serif;
+    background-color: transparent;
     font-weight: bolder;
-    border-radius: 5px;
-    border-width: 2px;
+    border-radius: 20px;
+    border-width: 1px;
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
@@ -75,13 +75,20 @@ a:active {color:#000000;}
     text-align: center;
 }
 
-.btn:active {
-    transform: scale(0.94);
-}
+.btn:active {transform: scale(0.94);}
+.btn:hover {transform: scale(0.98);}
+
 
 input[type=text] {
-    border-radius: 5px;
-    padding: 5px 5px;
+    border-radius: 20px;
+    padding: 7px 7px;
     margin: 0;
     box-sizing: border-box;
+    border-width: 1px;
+}
+
+.item-image {
+    box-shadow: 5px 5px 10px;
+    border-radius: 20px;
+    margin-left: 2vw;
 }

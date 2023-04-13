@@ -16,7 +16,9 @@ def home_view(request, *args, **kwargs):
         return render(request, "home.html", {'input': input})
     
     content = getResult(input)
-    return render(request, "home.html", {'input': content})
+    images = getImage()
+    print(images)
+    return render(request, "home.html", {'input':content , 'images':images})
 
 def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})
@@ -77,8 +79,10 @@ def getResult(input):
         if img.has_attr('src'):
             links.append(img['src'])
 
+    print(links)
+
     #Slicing up 'duplicate links'
-    temp = links[2:10]
+    temp = links[3:10]
     newLinks = temp[::2]
     
     #the list 'newLinks' contains 4 links
