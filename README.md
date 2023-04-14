@@ -14,3 +14,7 @@ Backend
     - Add in more support for more stores (priority)
     - Add in location based search for stores
     - Move everything onto the server
+    
+Webservice
+    -Connect entire app onto aws (Done by Ryley)
+    -Upkeep/maintain updates for the webservice
