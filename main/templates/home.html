@@ -28,7 +28,8 @@
         <div class="user-input">
             <form action="" method="post">
                 {% csrf_token %}
-                <input type="text" name="store-item">
+                <input type="text" name="store-item" placeholder="Enter item...">
+                <input type="text" name="location-zip" placeholder="Enter zipcode...">
                 <button type="submit" class="btn">Find Item</button>
             </form>
         </div>
