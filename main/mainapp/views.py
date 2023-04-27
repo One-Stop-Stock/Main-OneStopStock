@@ -27,9 +27,14 @@ def getResult(input):
     global imageList
     #Change driver and driver location
     driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
-    targetLink = "https://www.target.com/s?searchTerm="
     itemSearch = input
-    link = targetLink + itemSearch
+
+    #targetLink = "https://www.target.com/s?searchTerm="
+    # link = targetLink + itemSearch
+
+    dollarLink = "https://www.dollartree.com/searchresults?Ntt="
+    link  = dollarLink + itemSearch
+
     driver.get(link)
     time.sleep(8)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
@@ -64,7 +69,7 @@ def getResult(input):
             k["Item{}".format(i + 1)] = None
     content.append(k)
     k = {}
-    '''
+    
     
     #Target Testing
     try:
@@ -72,7 +77,7 @@ def getResult(input):
     except:
         item = None
     
-    """ 
+    """
     OUTDATED - KEEPING THIS HERE JUST IN CASE SOMETHING BREAKS
 
     #finds all image links on the website and storing it into a list
@@ -83,10 +88,11 @@ def getResult(input):
             links.append(img['src'])
 
     print(links)
-
+    
     #Slicing up 'duplicate links'
     temp = links[3:10]
-    newLinks = temp[::2]"
+    newLinks = temp[::2]
+    """"
     """
 
     #New version of image retrieval 
@@ -107,9 +113,38 @@ def getResult(input):
             k["Item{}".format(i + 1)] = None
         content.append(k)
         k = {}
+    '''
 
 
-    return (content)
+    #Dollar Tree Testing
+    items = list()
+
+    try:
+        entry = soup.find_all("span", {"data-bind": "html: displayName"})
+    except:
+        entry = None
+
+    count = 1
+    for i in range(0, 8, 2):
+        try:
+            k["Item {}".format(count)] = entry[i].text
+        except:
+            k["Item{}".format(i + 1)] = None
+        items.append(k)
+        k = {}
+        count = count + 1
+
+    links = list()
+    for images in soup.find_all("img", {"class": "bg-product-image"}):
+        links.append(images['src'])
+
+    tempString = "https://www.dollartree.com"
+    temp = links[:4]
+    newLinks = [tempString + s for s in temp]
+
+    imageList = newLinks
+
+    return (items)
 
 def getImage():
     global imageList
