@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>One Stop Stock</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body id="home-page-body" style="background: url('./static/abstract-blur-supermarket.jpg');
@@ -16,37 +19,67 @@
     <div>
     <div id="headerhelp">
     <header id="header">
-        <a class="navheading" href="{% url 'home' %}">Home</a>
+        <a class="navheading" href="{% url 'home' %}" style="margin-left: 15px;">Home</a>
         <a class="navheading" href="{% url 'about' %}">About</a>
-        <a class="navheading" href="" id="rightmost-link">Contact</a>
     </header>
     </div> 
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center; margin-top: 20%;">
     <div class="App">
         <h1 id="main-name">One Stop Stock</h1>
-        <h3>Enter what product you would like to search for :</h3>
+        <div id="ui">
+        <h3 style="margin-bottom: 10px;">Enter what product you would like to search for :</h3>
         <div class="user-input">
-            <form action="" method="post">
+            <form action="" method="post" style="margin-top: 20px;">
                 {% csrf_token %}
                 <input type="text" name="store-item" placeholder="Enter item...">
                 <input type="text" name="location-zip" placeholder="Enter zipcode...">
-                <button type="submit" class="btn">Find Item</button>
+                <button type="submit" id="btn-send" class="btn btn-outline-dark">Find Item</button>
             </form>
         </div>
-        <div>
+        <div style="margin-top: 20px;">
             {% if input %}
-                <p>Showing results for : {{input}}</p>
+                <div style="width: 30vw;">Showing results for : {{input}}</div>
                 {% for url in images %}
                     <img class="item-image" src="{{ url }}" alt="Item Image">
                 {% endfor %}
-            {% else %}
-                <p>Waiting for item input...</p>
+            </div>
             {% endif %}
         </div>
+        </div>
     </div>
+
+    &nbsp
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+    <!-- Ajax Calls -->
+    <script>
+        jQuery(function($) {
+            $(document).ajaxSend(function() {
+                $("spinner-border");
+
+                var loading = `<div class="spinner-border"></div>&nbsp;Please wait...`
+                $("#btn-send").html(loading);
+            });
+
+            $("#btn-send").click(function() {
+                $.ajax({
+                    type: 'GET',
+                    success: function(data) {
+                        console.log(data);
+                    }
+                }).done(function() {
+                    setTimeout(function() {
+                        $(".spinner-border");
+                    }, 700);
+                });
+            });
+        });
+    </script>
+
     </div>
     <footer id="footer">
-        <p id="contributers">Contibuters: Tristen Bizzaro, Ryan Phan, Ryley Gonzales</p>
+        <div id="contributers">Contibuters: Tristen Bizzaro, Ryan Phan, Ryley Gonzales</div>
     </footer> 
     </div>
 </body>

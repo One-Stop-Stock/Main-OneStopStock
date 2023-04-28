@@ -5,8 +5,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.utils import ChromeType
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 def home_view(request, *args, **kwargs):
@@ -17,7 +17,7 @@ def home_view(request, *args, **kwargs):
     
     content = getResult(input)
     images = getImage()
-    print(images)
+    
     return render(request, "home.html", {'input':content , 'images':images})
 
 def about_view(request, *args, **kwargs):
@@ -26,7 +26,7 @@ def about_view(request, *args, **kwargs):
 def getResult(input):
     global imageList
     #Change driver and driver location
-    driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     targetLink = "https://www.target.com/s?searchTerm="
     itemSearch = input
     link = targetLink + itemSearch

@@ -29,7 +29,7 @@ a:active {color:#000000;}
     line-height: 50px;
     width: 100%;
     background-color: rgba(20, 20, 20, 0.5);
-    text-align: right;
+    text-align: left;
     align-items: center;
 }
 
@@ -37,10 +37,6 @@ a:active {color:#000000;}
     padding: 2px;
     font-size: 15px;
     font-weight: bolder;
-}
-
-#rightmost-link {
-    margin-right: 15px;
 }
 
 #footer {
@@ -54,8 +50,13 @@ a:active {color:#000000;}
 }
 
 #contributers {
+    color: #000000;
+    position: absolute;
+    bottom: 10px;
     font-weight: bolder;
     font-size: 12px;
+    left: 0;
+    right: 0;
 }
 
 .btn {
@@ -68,7 +69,7 @@ a:active {color:#000000;}
     display: inline-block;
     font-size: 14px;
     line-height: 20px;
-    padding: 5px 5px;
+    padding: 10px 10px;
     text-align: center;
 }
 
@@ -88,4 +89,9 @@ input[type=text] {
     box-shadow: 5px 5px 10px;
     border-radius: 20px;
     margin-left: 2vw;
+}
+
+.spinner-border {height:12px; width:12px;}
+
+#ui {
 }
