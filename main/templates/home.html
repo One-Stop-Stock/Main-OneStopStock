@@ -35,9 +35,30 @@
             </form>
         </div>
         <div style="margin-top: 20px;">
-            {% if input %}
-                <div style="width: 30vw;">Showing results for : {{input}}</div>
-                {% for url in images %}
+            {% if store1 %}
+                <div style="width: 30vw;">Showing results for : {{store1}}</div>
+                {% for url in images1 %}
+                    <img class="item-image" src="{{ url }}" alt="Item Image">
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if store2 %}
+                <div style="width: 30vw;">Showing results for : {{store2}}</div>
+                {% for url in images2 %}
+                    <img class="item-image" src="{{ url }}" alt="Item Image">
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if store3 %}
+                <div style="width: 30vw;">Showing results for : {{store3}}</div>
+                {% for url in images3 %}
+                    <img class="item-image" src="{{ url }}" alt="Item Image">
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if store4 %}
+                <div style="width: 30vw;">Showing results for : {{store4}}</div>
+                {% for url in images4 %}
                     <img class="item-image" src="{{ url }}" alt="Item Image">
                 {% endfor %}
             </div>
