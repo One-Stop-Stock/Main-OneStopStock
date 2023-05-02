@@ -3,10 +3,10 @@ body {
     margin: 0px 0px 0px 0px;
 }
 
-a {color:#000000; text-decoration: none;}
+/* a {color:#000000; text-decoration: none;}
 a:visited {color:#000000;}
 a:hover {color:#000000;}
-a:active {color:#000000;}
+a:active {color:#000000;} */
 
 #main-name {
     margin-bottom: 2vh;
@@ -91,7 +91,7 @@ input[type=text] {
     margin-left: 2vw;
 }
 
-.spinner-border {height:12px; width:12px;}
+/* .spinner-border {height:12px; width:12px;} */
 
 #ui {
 }
