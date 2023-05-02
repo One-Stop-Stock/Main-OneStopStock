@@ -26,18 +26,25 @@ def getResult(input):
     #Change driver and driver location
 
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    targetLink = "https://www.target.com/s?searchTerm="
 
     itemSearch = input
 
     #targetLink = "https://www.target.com/s?searchTerm="
     # link = targetLink + itemSearch
+    #driver.get(link)
 
+    #comment from here
     dollarLink = "https://www.dollartree.com/searchresults?Ntt="
     link  = dollarLink + itemSearch
 
     driver.get(link)
-    time.sleep(8)
+    driver.maximize_window()
+    time.sleep(7)
+    driver.execute_script("window.scrollTo(0,500);")
+    time.sleep(3)
+    #to here to deactivate dollar tree
+
+
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
 
@@ -115,6 +122,7 @@ def getResult(input):
         content.append(k)
         k = {}
     '''
+
 
 
     #Dollar Tree Testing
