@@ -17,7 +17,7 @@ def home_view(request, *args, **kwargs):
     content = getResult(input)
     images = getImage()
     
-    return render(request, "home.html", {'input':content , 'images':images})
+    return render(request, "home.html", {'content':content , 'images':images})
 
 def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})

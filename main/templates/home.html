@@ -14,6 +14,7 @@
     {% bootstrap_javascript %}
 </head>
 <style>
+    body{font-family: monospace, Arial, sans-serif;}
     a {color:#000000; text-decoration: none;}
     a:visited {color:#000000;}
     a:hover {color:#000000;}
@@ -24,91 +25,101 @@
                                 background-size: 215%;
                                 background-position: center center;">
     <div>
-    <div id="headerhelp">
-    <header id="header">
-        <a class="navheading" href="{% url 'home' %}" style="margin-left: 15px; ">Home</a>
-        <a class="navheading" href="{% url 'about' %}">About</a>
-    </header>
-    </div> 
-    <div style="display: flex; justify-content: center; margin-top: 20%;">
-    <div class="App">
-        <h1 id="main-name">One Stop Stock</h1>
-        <div id="ui">
-        <h3 style="margin-bottom: 10px;">Enter what product you would like to search for :</h3>
-        <div class="user-input">
-            <form action="" method="post" style="margin-top: 20px;">
-                {% csrf_token %}
-                <input type="text" name="store-item" placeholder="Enter item...">
-                <input type="text" name="location-zip" placeholder="Enter zipcode...">
-                <button type="submit" id="btn-send" class="btn btn-outline-dark" style="border-radius: 20px;">Find Item</button>
-            </form>
-        </div>
-        <div style="margin-top: 20px;">
-            {% if input %}
-                <div style="background-color: rgba(20, 20, 20, 0.5); border-radius: 5px; color: black; margin-bottom: 10px;">{{input}}</div>
-                {% for url in images %}
-                    <img class="item-image" src="{{ url }}" alt="Item Image">
-                {% endfor %}
+        <div id="headerhelp">
+            <header id="header">
+                <a class="navheading" href="{% url 'home' %}" style="margin-left: 15px; ">Home</a>
+                <a class="navheading" href="{% url 'about' %}">About</a>
+            </header>
+        </div> 
+        <div style="display: flex; justify-content: center;">
+            <div class="App" style="margin-top: 5%;">
+                <h1 id="main-name">One Stop Stock</h1>
+                <div id="ui">
+                    <h3 style="margin-bottom: 10px;">Enter what product you would like to search for :</h3>
+                    <div class="user-input">
+                        <form action="" method="post" style="margin-top: 20px;">
+                            {% csrf_token %}
+                            <input type="text" name="store-item" placeholder="Enter item...">
+                            <input type="text" name="location-zip" placeholder="Enter zipcode...">
+                            <button type="submit" id="btn-send" class="btn btn-outline-dark" style="border-radius: 20px;">Find Item</button>
+                        </form>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        {% if content %}
+                            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                                {% for url in images %}
+                                    <div>
+                                        <img class="item-image" src="{{ url }}" alt="Item Image">
+                                        {% for item in content %}
+                                            {% if forloop.counter == forloop.parentloop.counter %}
+                                                <div style="padding: 10px;">{{ item }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- FIX ONCE WE HAVE MULTIPLE STORE SUPPORT -->
+                        {% if store2 %}
+                            <div style="width: 30vw;">Showing results for : {{store2}}</div>
+                                {% for url in images2 %}
+                                    <img class="item-image" src="{{ url }}" alt="Item Image">
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if store3 %}
+                            <div style="width: 30vw;">Showing results for : {{store3}}</div>
+                                {% for url in images3 %}
+                                    <img class="item-image" src="{{ url }}" alt="Item Image">
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if store4 %}
+                            <div style="width: 30vw;">Showing results for : {{store4}}</div>
+                                {% for url in images4 %}
+                                    <img class="item-image" src="{{ url }}" alt="Item Image">
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <!--------------------------------------------->
+                    </div>
+                </div>
             </div>
-            {% endif %}
-            {% if store2 %}
-                <div style="width: 30vw;">Showing results for : {{store2}}</div>
-                {% for url in images2 %}
-                    <img class="item-image" src="{{ url }}" alt="Item Image">
-                {% endfor %}
-            </div>
-            {% endif %}
-            {% if store3 %}
-                <div style="width: 30vw;">Showing results for : {{store3}}</div>
-                {% for url in images3 %}
-                    <img class="item-image" src="{{ url }}" alt="Item Image">
-                {% endfor %}
-            </div>
-            {% endif %}
-            {% if store4 %}
-                <div style="width: 30vw;">Showing results for : {{store4}}</div>
-                {% for url in images4 %}
-                    <img class="item-image" src="{{ url }}" alt="Item Image">
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-        </div>
-    </div>
 
-    &nbsp
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+            &nbsp
+            <!-- JQuery -->
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
-    <!-- Ajax Calls -->
-    <script>
-        jQuery(function($) {
-            $(document).ajaxSend(function() {
-                $("spinner-border");
+            <!-- Ajax Calls -->
+            <script>
+                jQuery(function($) {
+                    $(document).ajaxSend(function() {
+                        $("spinner-border");
 
-                var loading = `<div class="spinner-border" style="height:12px; width:12px;"></div>&nbsp;Please wait...`
-                $("#btn-send").html(loading);
-            });
+                        var loading = `<div class="spinner-border" style="height:12px; width:12px;"></div>&nbsp;Please wait...`
+                        $("#btn-send").html(loading);
+                    });
 
-            $("#btn-send").click(function() {
-                $.ajax({
-                    type: 'GET',
-                    success: function(data) {
-                        console.log(data);
-                    }
-                }).done(function() {
-                    setTimeout(function() {
-                        $(".spinner-border");
-                    }, 700);
+                    $("#btn-send").click(function() {
+                        $.ajax({
+                            type: 'GET',
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        }).done(function() {
+                            setTimeout(function() {
+                                $(".spinner-border");
+                            }, 700);
+                        });
+                    });
                 });
-            });
-        });
-    </script>
+            </script>
 
-    </div>
-    <footer id="footer">
-        <div id="contributers">Contibuters: Tristen Bizzaro, Ryan Phan, Ryley Gonzales</div>
-    </footer> 
+        </div>
+        <footer id="footer">
+            <div id="contributers">Contibuters: Tristen Bizzaro, Ryan Phan, Ryley Gonzales</div>
+        </footer> 
     </div>
 </body>
 </html>
