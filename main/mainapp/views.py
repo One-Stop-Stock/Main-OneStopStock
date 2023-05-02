@@ -148,8 +148,9 @@ def getResult(input):
         links.append(images['src'])
 
     tempString = "https://www.dollartree.com"
-    temp = links[:4]
-    newLinks = [tempString + s for s in temp]
+    newLinks = links[:4]
+    newLinks = [re.sub("=940", "=150", i) for i in newLinks]
+    newLinks = [tempString + s for s in newLinks]
 
     imageList = newLinks
 
