@@ -14,7 +14,7 @@ def home_view(request, *args, **kwargs):
     if not input:
         return render(request, "home.html", {'input': input})
     
-    content = getResult(input)
+    content = targetStore(input)
     images = getImage()
     
     return render(request, "home.html", {'content':content , 'images':images})
@@ -24,17 +24,11 @@ def about_view(request, *args, **kwargs):
 
 def getResult(input):
     global imageList
-    #Change driver and driver location
 
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
     itemSearch = input
 
-    #targetLink = "https://www.target.com/s?searchTerm="
-    # link = targetLink + itemSearch
-    #driver.get(link)
-
-    #comment from here
     dollarLink = "https://www.dollartree.com/searchresults?Ntt="
     link  = dollarLink + itemSearch
 
@@ -43,13 +37,9 @@ def getResult(input):
     time.sleep(7)
     driver.execute_script("window.scrollTo(0,500);")
     time.sleep(3)
-    #to here to deactivate dollar tree
-
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
-
-    content = list()
     k = {}
 
     """ #Walmart Test
@@ -68,63 +58,6 @@ def getResult(input):
     content.append(k)
     k = {}
     """
-
-    '''
-    #Only get the first 4 items
-    for i in range (0,4):
-        try:
-            k["Item{}".format(i + 1)] = item[i].find("span", {"data-automation-id": "product-title"}).text.replace("\n","")
-        except:
-            k["Item{}".format(i + 1)] = None
-    content.append(k)
-    k = {}
-    
-    
-    #Target Testing
-    try:
-        item = soup.find_all("div", {"class": "Truncate-sc-10p6c43-0 flAIvs"})
-    except:
-        item = None
-    
-    """
-    OUTDATED - KEEPING THIS HERE JUST IN CASE SOMETHING BREAKS
-
-    #finds all image links on the website and storing it into a list
-    links = list()
-    images = soup.find_all('img')
-    for img in images:
-        if img.has_attr('src'):
-            links.append(img['src'])
-
-    print(links)
-    
-    #Slicing up 'duplicate links'
-    temp = links[3:10]
-    newLinks = temp[::2]
-    """"
-    """
-
-    #New version of image retrieval 
-    #Tells soup to find all of our images wthin a certain section (ie the product section, ignoring ads or other misc)
-    links = list()
-    for images in soup.find_all("picture", {"data-test" : "@web/ProductCard/ProductCardImage/primary"}):
-        for img in images.find_all("img"):
-            links.append(img['src'])
-
-    temp = links[:4] #Condense down the amount of links into 4
-    imageList = temp #shipping it off
-    
-
-    for i in range(0, 4):
-        try:
-            k["Item{}".format(i + 1)] = item[i].find("a", {"data-test": "product-title"}).text.replace("\n", "")
-        except:
-            k["Item{}".format(i + 1)] = None
-        content.append(k)
-        k = {}
-    '''
-
-
 
     #Dollar Tree Testing
     items = list()
@@ -154,13 +87,130 @@ def getResult(input):
     newLinks = [tempString + s for s in newLinks]
 
     imageList = newLinks
-
+    
     return (items)
 
 def getImage():
     global imageList
     return imageList
 
+def targetStore(input):
+    global imageList
+    zipcode = "91763"
+
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+
+    url = "https://www.target.com/s?searchTerm=" + input
+
+    driver.get(url)
+    driver.maximize_window()
+    time.sleep(7)
+    element = driver.find_element(By.ID,"web-store-id-msg-btn")
+    element.click()
+    time.sleep(2)
+    element = driver.find_element(By.ID,"zip-or-city-state")
+    element.click()
+    element.send_keys(zipcode)
+    xpath = "/html/body/div[5]/div/div/div[2]/div[1]/div/div[2]/div[2]/button"
+    element = driver.find_element(By.XPATH,xpath)
+    element.click()
+    time.sleep(3)
+    xpath2 = "/html/body/div[5]/div/div/div[2]/div[2]/fieldset/div[3]/div/div[1]/label"
+    element = driver.find_element(By.XPATH,xpath2)
+    element.click()
+    time.sleep(2)
+    xpath3 = "/html/body/div[5]/div/div/div[3]/button"
+    element = driver.find_element(By.XPATH,xpath3)
+    element.click()
+    time.sleep(4)
+    driver.execute_script("window.scrollTo(0,600);")
+    time.sleep(4)
+
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    driver.close()
+
+    k = {}
+    items = list()
+
+    try:
+        entry = soup.find_all("div", {"class": "Truncate-sc-10p6c43-0 flAIvs"})
+    except:
+        entry = None
+
+    for i in range(0, 4):
+        try:
+            k["Title{}".format(i + 1)] = entry[i].find("a", {"data-test": "product-title"}).text.replace("\n",
+                                                                                                                    "")
+        except:
+            k["Title{}".format(i + 1)] = None
+        items.append(k)
+        k = {}
+
+    links = list()
+
+    for images in soup.find_all("picture", {"data-test" : "@web/ProductCard/ProductCardImage/primary"}):
+        for img in images.find_all("img"):
+            links.append(img['src'])
+
+    imageList = links[:4]
+
+    return items
+
+def dollarGeneral(input):
+    global imageList
+    zipcode = "91763"
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    
+    url = "https://www.dollargeneral.com/product-search.html?q="
+    inStock = "&inStock=true"
+    fullUrl = url + input + inStock
+    xpath = "/html/body/div[1]/div/div[1]/div/div/header/div/div[2]/div[1]/div/div/ul/li[1]/div/button[2]"
+    driver.get(url)
+    time.sleep(6)
+    element = driver.find_element(By.CLASS_NAME,"menu-toggle__store-name")
+    element.click()
+    time.sleep(2)
+    element = driver.find_element(By.CLASS_NAME,"store-locator-menu__location-toggle")
+    element.click()
+    time.sleep(2)
+    element = driver.find_element(By.CLASS_NAME,"location-form__field")
+    time.sleep(2)
+    element.clear()
+    element.send_keys(zipcode)
+    element = driver.find_element(By.CLASS_NAME,"location-form__apply-button")
+    element.click()
+    time.sleep(2)
+    element = driver.find_element(By.XPATH, xpath)
+    element.click()
+    time.sleep(6)
+
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    driver.close()
+
+    k = {}
+    items = list()
+
+    try:
+        entry = soup.find_all("div", {"class" : "product-card__title"})
+    except:
+        entry = None
+
+    for i in range (1,5):
+        try:
+            k["Item {}".format(i)] = entry[i].text
+        except:
+            k["Item{}".format(i)] = None
+        items.append(k)
+        k = {}
+
+    links = list()
+    images = soup.find_all ("img", {"src" : True})
+    for img in images:
+        links.append(img['src'])
+
+    imageList = links[3:7]
+
+    return (items)
 
 """ def tristen_a3p3(request, *args, **kwargs):
     return render(request, "tristena3p3.html", {})
