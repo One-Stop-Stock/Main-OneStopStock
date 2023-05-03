@@ -10,12 +10,14 @@ import re
 
 def home_view(request, *args, **kwargs):
     input = request.POST.get('store-item')
+    zipcode = request.POST.get('location-zip')
     print(input)
     if not input:
         return render(request, "home.html", {'input': input})
     
     content = targetStore(input)
     images = getImage()
+    print(zipcode)
     
     return render(request, "home.html", {'content':content , 'images':images})
 
@@ -83,7 +85,7 @@ def getResult(input):
 
     tempString = "https://www.dollartree.com"
     newLinks = links[:4]
-    newLinks = [re.sub("=940", "=150", i) for i in newLinks]
+    newLinks = [re.sub("=940", "=75", i) for i in newLinks]
     newLinks = [tempString + s for s in newLinks]
 
     imageList = newLinks
