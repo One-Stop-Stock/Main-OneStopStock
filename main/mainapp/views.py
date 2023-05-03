@@ -4,6 +4,8 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import re
@@ -15,11 +17,12 @@ def home_view(request, *args, **kwargs):
     if not input:
         return render(request, "home.html", {'input': input})
     
+    #content = targetStore(input, zipcode)
+    #images = getImage()
     content = targetStore(input)
-    images = getImage()
     print(zipcode)
     
-    return render(request, "home.html", {'content':content , 'images':images})
+    return render(request, "home.html", {'content':content , 'images':imageList})
 
 def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})
@@ -96,17 +99,17 @@ def getImage():
     global imageList
     return imageList
 
-def targetStore(input):
+def targetStore(input, zipcode):
     global imageList
-    zipcode = "91763"
 
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
     url = "https://www.target.com/s?searchTerm=" + input
 
+    #Location Based Searching
     driver.get(url)
     driver.maximize_window()
-    time.sleep(7)
+    time.sleep(6)
     element = driver.find_element(By.ID,"web-store-id-msg-btn")
     element.click()
     time.sleep(2)
@@ -116,7 +119,7 @@ def targetStore(input):
     xpath = "/html/body/div[5]/div/div/div[2]/div[1]/div/div[2]/div[2]/button"
     element = driver.find_element(By.XPATH,xpath)
     element.click()
-    time.sleep(3)
+    time.sleep(2)
     xpath2 = "/html/body/div[5]/div/div/div[2]/div[2]/fieldset/div[3]/div/div[1]/label"
     element = driver.find_element(By.XPATH,xpath2)
     element.click()
@@ -134,11 +137,13 @@ def targetStore(input):
     k = {}
     items = list()
 
+    #Searching for all items
     try:
         entry = soup.find_all("div", {"class": "Truncate-sc-10p6c43-0 flAIvs"})
     except:
         entry = None
 
+    #Limited items to 4
     for i in range(0, 4):
         try:
             k["Title{}".format(i + 1)] = entry[i].find("a", {"data-test": "product-title"}).text.replace("\n",
@@ -148,26 +153,28 @@ def targetStore(input):
         items.append(k)
         k = {}
 
+    #Searches for all item images
     links = list()
-
     for images in soup.find_all("picture", {"data-test" : "@web/ProductCard/ProductCardImage/primary"}):
         for img in images.find_all("img"):
             links.append(img['src'])
 
+    #Limit the images to the first 4 products and store it inside a global variabl
     imageList = links[:4]
 
+    #return the items
     return items
 
-def dollarGeneral(input):
-    global imageList
-    zipcode = "91763"
+def dollarGeneral(input, zipcode):
+    global imageList2
+
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     
     url = "https://www.dollargeneral.com/product-search.html?q="
     inStock = "&inStock=true"
     fullUrl = url + input + inStock
     xpath = "/html/body/div[1]/div/div[1]/div/div/header/div/div[2]/div[1]/div/div/ul/li[1]/div/button[2]"
-    driver.get(url)
+    driver.get(fullUrl)
     time.sleep(6)
     element = driver.find_element(By.CLASS_NAME,"menu-toggle__store-name")
     element.click()
@@ -210,7 +217,7 @@ def dollarGeneral(input):
     for img in images:
         links.append(img['src'])
 
-    imageList = links[3:7]
+    imageList2 = links[3:7]
 
     return (items)
 
