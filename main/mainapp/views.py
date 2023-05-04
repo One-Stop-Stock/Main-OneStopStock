@@ -179,7 +179,7 @@ def walgreenStore(input,zipcode):
     time.sleep(12)
 
     #Location
-    element = driver.find_element(By.XPATH,"/html/body/div[3]/div/div[1]/div[1]/span/div/div[1]/a/span/strong")
+    element = driver.find_element(By.XPATH,"/html/body/div[3]/div/div[1]/div[1]/span/div/div[1]/a/span")
     element.click()
     time.sleep(4)
     element = driver.find_element(By.ID, "store-header-search")
