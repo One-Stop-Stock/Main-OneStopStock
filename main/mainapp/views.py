@@ -41,10 +41,12 @@ def targetStore(input, zipcode):
 
     url = "https://www.target.com/s?searchTerm=" + input
 
-    #Location Based Searching
     driver.get(url)
     driver.maximize_window()
-    time.sleep(12)
+    time.sleep(15)
+    #Location Based Searching
+    
+    """
     element = driver.find_element(By.ID,"web-store-id-msg-btn")
     element.click()
     time.sleep(4)
@@ -64,7 +66,8 @@ def targetStore(input, zipcode):
     element.click()
     time.sleep(6)
     driver.execute_script("window.scrollTo(0,600);")
-    time.sleep(6)
+    time.sleep(10)
+    """
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
@@ -108,9 +111,12 @@ def dollarGeneral(input, zipcode):
     url = "https://www.dollargeneral.com/product-search.html?q="
     inStock = "&inStock=true"
     fullUrl = url + input + inStock
-    xpath = "/html/body/div[1]/div/div[1]/div/div/header/div/div[2]/div[1]/div/div/ul/li[1]/div/button[2]"
     driver.get(fullUrl)
     time.sleep(12)
+
+    """
+    xpath = "/html/body/div[1]/div/div[1]/div/div/header/div/div[2]/div[1]/div/div/ul/li[1]/div/button[2]"
+    
     element = driver.find_element(By.CLASS_NAME,"menu-toggle__store-name")
     element.click()
     time.sleep(4)
@@ -136,6 +142,7 @@ def dollarGeneral(input, zipcode):
     element = driver.find_element(By.XPATH, xpath)
     element.click()
     time.sleep(10)
+    """
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
@@ -192,7 +199,7 @@ def walgreenStore(input,zipcode):
     element.click()
     time.sleep(6)
     """
-    
+
     soup = BeautifulSoup(driver.page_source,'html.parser')
     driver.close()
 
