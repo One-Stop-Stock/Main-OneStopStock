@@ -43,9 +43,12 @@ def targetStore(input, zipcode):
 
     driver.get(url)
     driver.maximize_window()
+
     time.sleep(15)
+    driver.execute_script("window.scrollTo(0,600);")
+    time.sleep(15)
+
     #Location Based Searching
-    
     """
     element = driver.find_element(By.ID,"web-store-id-msg-btn")
     element.click()
@@ -112,7 +115,7 @@ def dollarGeneral(input, zipcode):
     inStock = "&inStock=true"
     fullUrl = url + input + inStock
     driver.get(fullUrl)
-    time.sleep(12)
+    time.sleep(15)
 
     """
     xpath = "/html/body/div[1]/div/div[1]/div/div/header/div/div[2]/div[1]/div/div/ul/li[1]/div/button[2]"
@@ -183,7 +186,7 @@ def walgreenStore(input,zipcode):
 
     driver.get(fullUrl)
     driver.maximize_window()
-    time.sleep(12)
+    time.sleep(20)
 
     #Location
     """
