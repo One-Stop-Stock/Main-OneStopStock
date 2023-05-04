@@ -179,6 +179,7 @@ def walgreenStore(input,zipcode):
     time.sleep(12)
 
     #Location
+    """
     element = driver.find_element(By.XPATH,"/html/body/div[3]/div/div[1]/div[1]/span/div/div[1]/a/span")
     element.click()
     time.sleep(4)
@@ -190,7 +191,8 @@ def walgreenStore(input,zipcode):
     element = driver.find_element(By.XPATH, "/html/body/div[3]/div/div[1]/div[2]/ul/li[1]/div[2]/a")
     element.click()
     time.sleep(6)
-
+    """
+    
     soup = BeautifulSoup(driver.page_source,'html.parser')
     driver.close()
 
