@@ -47,6 +47,7 @@
                     <div style="margin-top: 20px;">
                         {% if store1 %}
                             <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                                <!-- <div>Target Stock</div> -->
                                 {% for url in images1 %}
                                     <div>
                                         <img class="item-image" src="{{ url }}" alt="Item Image" style="height:200px; width:200px;">
@@ -61,6 +62,7 @@
                         {% endif %}
                         {% if store2 %}
                             <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                                <!-- <div>Dollar General Stock</div> -->
                                 {% for url in images2 %}
                                     <div>
                                         <img class="item-image" src="{{ url }}" alt="Item Image" style="height:200px; width:200px;">
@@ -74,20 +76,22 @@
                             </div>
                         {% endif %}
                         {% if store3 %}
-                            <div style="width: 30vw;">Showing results for : {{store3}}</div>
+                            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                                <!-- <div>Walgreens Stock</div> -->
                                 {% for url in images3 %}
-                                    <img class="item-image" src="{{ url }}" alt="Item Image">
+                                    <div>
+                                        <img class="item-image" src="{{ url }}" alt="Item Image" style="height:200px; width:200px;">
+                                        {% for item in store3 %}
+                                            {% if forloop.counter == forloop.parentloop.counter %}
+                                                <div style="padding: 10px;">{{ item }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 {% endfor %}
                             </div>
                         {% endif %}
                         {% if store4 %}
-                            <div style="width: 30vw;">Showing results for : {{store4}}</div>
-                                {% for url in images4 %}
-                                    <img class="item-image" src="{{ url }}" alt="Item Image">
-                                {% endfor %}
-                            </div>
                         {% endif %}
-                        <!--------------------------------------------->
                     </div>
                 </div>
             </div>

@@ -22,11 +22,14 @@ def home_view(request, *args, **kwargs):
     #images = getImage()
     store1 = targetStore(input, zipcode)
     store2 = dollarGeneral(input, zipcode)
+    store3 = walgreenStore(input, zipcode)
     images1 = imageList1
     images2 = imageList2
+    images3 = imageList3
     
     return render(request, "home.html", {'store1':store1, 'images1':imageList1,
-                                         'store2':store2, 'images2':imageList2,})
+                                         'store2':store2, 'images2':imageList2,
+                                         'store3':store3, 'images3':imageList3,})
 
 def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})
