@@ -44,27 +44,27 @@ def targetStore(input, zipcode):
     #Location Based Searching
     driver.get(url)
     driver.maximize_window()
-    time.sleep(6)
+    time.sleep(12)
     element = driver.find_element(By.ID,"web-store-id-msg-btn")
     element.click()
-    time.sleep(2)
+    time.sleep(4)
     element = driver.find_element(By.ID,"zip-or-city-state")
     element.click()
     element.send_keys(zipcode)
     xpath = "/html/body/div[5]/div/div/div[2]/div[1]/div/div[2]/div[2]/button"
     element = driver.find_element(By.XPATH,xpath)
     element.click()
-    time.sleep(2)
+    time.sleep(4)
     xpath2 = "/html/body/div[5]/div/div/div[2]/div[2]/fieldset/div[3]/div/div[1]/label"
     element = driver.find_element(By.XPATH,xpath2)
     element.click()
-    time.sleep(2)
+    time.sleep(4)
     xpath3 = "/html/body/div[5]/div/div/div[3]/button"
     element = driver.find_element(By.XPATH,xpath3)
     element.click()
-    time.sleep(4)
+    time.sleep(6)
     driver.execute_script("window.scrollTo(0,600);")
-    time.sleep(4)
+    time.sleep(6)
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
@@ -110,23 +110,32 @@ def dollarGeneral(input, zipcode):
     fullUrl = url + input + inStock
     xpath = "/html/body/div[1]/div/div[1]/div/div/header/div/div[2]/div[1]/div/div/ul/li[1]/div/button[2]"
     driver.get(fullUrl)
-    time.sleep(6)
+    time.sleep(12)
     element = driver.find_element(By.CLASS_NAME,"menu-toggle__store-name")
     element.click()
-    time.sleep(2)
-    element = driver.find_element(By.CLASS_NAME,"store-locator-menu__location-toggle")
-    element.click()
-    time.sleep(2)
+    time.sleep(4)
+
+    error = True
+    try:
+        driver.find_element(By.CLASS_NAME,'store-locator-menu__location-toggle')
+    except NoSuchElementException:
+        error = False
+
+    if error:
+        element = driver.find_element(By.CLASS_NAME,"store-locator-menu__location-toggle")
+        element.click()
+
+    time.sleep(4)
     element = driver.find_element(By.CLASS_NAME,"location-form__field")
-    time.sleep(2)
+    time.sleep(4)
     element.clear()
     element.send_keys(zipcode)
     element = driver.find_element(By.CLASS_NAME,"location-form__apply-button")
     element.click()
-    time.sleep(2)
+    time.sleep(4)
     element = driver.find_element(By.XPATH, xpath)
     element.click()
-    time.sleep(6)
+    time.sleep(10)
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.close()
@@ -167,20 +176,20 @@ def walgreenStore(input,zipcode):
 
     driver.get(fullUrl)
     driver.maximize_window()
-    time.sleep(6)
+    time.sleep(12)
 
     #Location
     element = driver.find_element(By.XPATH,"/html/body/div[3]/div/div[1]/div[1]/span/div/div[1]/a/span/strong")
     element.click()
-    time.sleep(2)
+    time.sleep(4)
     element = driver.find_element(By.ID, "store-header-search")
     element.click()
     element.send_keys(zipcode)
     element.send_keys(Keys.RETURN)
-    time.sleep(5)
+    time.sleep(7)
     element = driver.find_element(By.XPATH, "/html/body/div[3]/div/div[1]/div[2]/ul/li[1]/div[2]/a")
     element.click()
-    time.sleep(4)
+    time.sleep(6)
 
     soup = BeautifulSoup(driver.page_source,'html.parser')
     driver.close()
