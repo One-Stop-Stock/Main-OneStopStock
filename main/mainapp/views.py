@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.keys import Keys
 import time
 import re
 
@@ -151,6 +152,66 @@ def dollarGeneral(input, zipcode):
     imageList2 = links[3:7]
 
     return (items)
+
+def walgreenStore(input,zipcode):
+    global imageList3
+
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+
+    url = "https://www.walgreens.com/search/results.jsp?Ntt="
+    inStock = "&inStockOnly=true"
+    fullUrl = url + input + inStock
+
+    driver.get(fullUrl)
+    driver.maximize_window()
+    time.sleep(6)
+
+    #Location
+    element = driver.find_element(By.XPATH,"/html/body/div[3]/div/div[1]/div[1]/span/div/div[1]/a/span/strong")
+    element.click()
+    time.sleep(2)
+    element = driver.find_element(By.ID, "store-header-search")
+    element.click()
+    element.send_keys(zipcode)
+    element.send_keys(Keys.RETURN)
+    time.sleep(5)
+    element = driver.find_element(By.XPATH, "/html/body/div[3]/div/div[1]/div[2]/ul/li[1]/div[2]/a")
+    element.click()
+    time.sleep(4)
+
+    soup = BeautifulSoup(driver.page_source,'html.parser')
+    driver.close()
+
+    k = {}
+    items = list()
+
+    try:
+        entry = soup.find_all("strong", {"class":"description"})
+    except:
+        entry = None
+
+    for i in range (0,4):
+        try:
+            k["Item {}".format(i+1)] = entry[i].text
+        except:
+            k["Item{}".format(i+1)] = None
+        items.append(k)
+        k = {}
+
+    links = list()
+
+    for images in soup.find_all("figure", {"class":"product__img"}):
+        for img in images.find_all("img"):
+            links.append(img['src'])
+
+    tempString = "https://"
+    newLinks = links[:4]
+    newLinks = [re.sub("450.", "100.", i) for i in newLinks]
+    imageList3 = [tempString + s for s in newLinks]
+
+    return items
+
+
 
 # """ def tristen_a3p3(request, *args, **kwargs):
 #     return render(request, "tristena3p3.html", {})
