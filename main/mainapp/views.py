@@ -54,11 +54,11 @@ def targetStore(input, zipcode):
     xpath = "/html/body/div[5]/div/div/div[2]/div[1]/div/div[2]/div[2]/button"
     element = driver.find_element(By.XPATH,xpath)
     element.click()
-    time.sleep(4)
-    xpath2 = "/html/body/div[5]/div/div/div[2]/div[2]/fieldset/div[3]/div/div[1]/label/div/div/h4"
-    element = driver.find_element(By.XPATH,xpath2)
-    element.click()
-    time.sleep(4)
+    time.sleep(8)
+    #xpath2 = "/html/body/div[5]/div/div/div[2]/div[2]/fieldset/div[3]/div/div[1]/label/div/div/h4"
+    #element = driver.find_element(By.XPATH,xpath2)
+    #element.click()
+    #time.sleep(4)
     xpath3 = "/html/body/div[5]/div/div/div[3]/button"
     element = driver.find_element(By.XPATH,xpath3)
     element.click()
