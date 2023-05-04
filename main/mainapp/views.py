@@ -19,88 +19,19 @@ def home_view(request, *args, **kwargs):
     
     #content = targetStore(input, zipcode)
     #images = getImage()
-    content = targetStore(input)
-    print(zipcode)
+    store1 = targetStore(input, zipcode)
+    store2 = dollarGeneral(input, zipcode)
+    images1 = imageList1
+    images2 = imageList2
     
-    return render(request, "home.html", {'content':content , 'images':imageList})
+    return render(request, "home.html", {'store1':store1, 'images1':imageList1,
+                                         'store2':store2, 'images2':imageList2,})
 
 def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})
 
-def getResult(input):
-    global imageList
-
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-
-    itemSearch = input
-
-    dollarLink = "https://www.dollartree.com/searchresults?Ntt="
-    link  = dollarLink + itemSearch
-
-    driver.get(link)
-    driver.maximize_window()
-    time.sleep(7)
-    driver.execute_script("window.scrollTo(0,500);")
-    time.sleep(3)
-
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
-    driver.close()
-    k = {}
-
-    """ #Walmart Test
-    #finding all the items on the page
-    try:
-        item = soup.find_all("span", {"class" : "w_V_DM"})
-    except:
-        item = None
-    
-    #Only get the first 4 items
-    for i in range (0,4):
-        try:
-            k["Item{}".format(i + 1)] = item[i].find("span", {"data-automation-id": "product-title"}).text.replace("\n","")
-        except:
-            k["Item{}".format(i + 1)] = None
-    content.append(k)
-    k = {}
-    """
-
-    #Dollar Tree Testing
-    items = list()
-
-    try:
-        entry = soup.find_all("span", {"data-bind": "html: displayName"})
-    except:
-        entry = None
-
-    count = 1
-    for i in range(0, 8, 2):
-        try:
-            k["Item {}".format(count)] = entry[i].text
-        except:
-            k["Item{}".format(i + 1)] = None
-        items.append(k)
-        k = {}
-        count = count + 1
-
-    links = list()
-    for images in soup.find_all("img", {"class": "bg-product-image"}):
-        links.append(images['src'])
-
-    tempString = "https://www.dollartree.com"
-    newLinks = links[:4]
-    newLinks = [re.sub("=940", "=75", i) for i in newLinks]
-    newLinks = [tempString + s for s in newLinks]
-
-    imageList = newLinks
-    
-    return (items)
-
-def getImage():
-    global imageList
-    return imageList
-
 def targetStore(input, zipcode):
-    global imageList
+    global imageList1
 
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
@@ -160,7 +91,7 @@ def targetStore(input, zipcode):
             links.append(img['src'])
 
     #Limit the images to the first 4 products and store it inside a global variabl
-    imageList = links[:4]
+    imageList1 = links[:4]
 
     #return the items
     return items
@@ -221,14 +152,86 @@ def dollarGeneral(input, zipcode):
 
     return (items)
 
-""" def tristen_a3p3(request, *args, **kwargs):
-    return render(request, "tristena3p3.html", {})
+# """ def tristen_a3p3(request, *args, **kwargs):
+#     return render(request, "tristena3p3.html", {})
 
-def ryleya3p3(request, *args, **kwargs):
-    return render(request, "ryleya3p3.html", {})	
+# def ryleya3p3(request, *args, **kwargs):
+#     return render(request, "ryleya3p3.html", {})	
 
-def ryana3p3(request, *args, **kwargs):
-    return render(request, "ryana3p3.html", {}) """
+# def ryana3p3(request, *args, **kwargs):
+#     return render(request, "ryana3p3.html", {}) """
+
+#def getResult(input):
+#     global imageList
+
+#     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+
+#     itemSearch = input
+
+#     dollarLink = "https://www.dollartree.com/searchresults?Ntt="
+#     link  = dollarLink + itemSearch
+
+#     driver.get(link)
+#     driver.maximize_window()
+#     time.sleep(7)
+#     driver.execute_script("window.scrollTo(0,500);")
+#     time.sleep(3)
+
+#     soup = BeautifulSoup(driver.page_source, 'html.parser')
+#     driver.close()
+#     k = {}
+
+#     """ #Walmart Test
+#     #finding all the items on the page
+#     try:
+#         item = soup.find_all("span", {"class" : "w_V_DM"})
+#     except:
+#         item = None
+    
+#     #Only get the first 4 items
+#     for i in range (0,4):
+#         try:
+#             k["Item{}".format(i + 1)] = item[i].find("span", {"data-automation-id": "product-title"}).text.replace("\n","")
+#         except:
+#             k["Item{}".format(i + 1)] = None
+#     content.append(k)
+#     k = {}
+#     """
+
+#     #Dollar Tree Testing
+#     items = list()
+
+#     try:
+#         entry = soup.find_all("span", {"data-bind": "html: displayName"})
+#     except:
+#         entry = None
+
+#     count = 1
+#     for i in range(0, 8, 2):
+#         try:
+#             k["Item {}".format(count)] = entry[i].text
+#         except:
+#             k["Item{}".format(i + 1)] = None
+#         items.append(k)
+#         k = {}
+#         count = count + 1
+
+#     links = list()
+#     for images in soup.find_all("img", {"class": "bg-product-image"}):
+#         links.append(images['src'])
+
+#     tempString = "https://www.dollartree.com"
+#     newLinks = links[:4]
+#     newLinks = [re.sub("=940", "=75", i) for i in newLinks]
+#     newLinks = [tempString + s for s in newLinks]
+
+#     imageList = newLinks
+    
+#     return (items)
+
+# def getImage():
+#     global imageList
+#     return imageList
 
 
 
